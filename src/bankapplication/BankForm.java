@@ -24,6 +24,7 @@ public class BankForm extends javax.swing.JFrame {
     int rowCount = 0;
     String[]errorList;
     int errorCount=0;
+    int[] graphBalance = new int[100];
     
     /**
      * Creates new form BankForm
@@ -187,6 +188,11 @@ public class BankForm extends javax.swing.JFrame {
         lblSimulationStop.setText("jLabel5");
 
         btnGraph.setText("Show Graph");
+        btnGraph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraphActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpControlPanelLayout = new javax.swing.GroupLayout(jpControlPanel);
         jpControlPanel.setLayout(jpControlPanelLayout);
@@ -415,6 +421,7 @@ public class BankForm extends javax.swing.JFrame {
             lblTotWithdrawn.setText(Integer.toString(account.getTotWithdraw()));
             tranCount ++;
             month++;
+            graphBalance[month] = account.getBalance();                                              
         }
     };
      timer = new Timer();
@@ -439,6 +446,14 @@ public class BankForm extends javax.swing.JFrame {
         lblMinBalance.setVisible(true);
       
     }//GEN-LAST:event_btnStopSimActionPerformed
+
+    private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
+        
+       Graph createGraph = new Graph(graphBalance, month);
+       createGraph.setVisible(true);
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGraphActionPerformed
 
     /**
      * @param args the command line arguments
