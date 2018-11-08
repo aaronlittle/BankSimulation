@@ -18,7 +18,7 @@ public class SavingsAccount extends Account {
     //private String errorMsg = "Error! Savings Account cannot be under £100";
     public SavingsAccount()
     {
-        
+        //connor test comment
     }
     
     public SavingsAccount(String fn, String ln, int bal)
