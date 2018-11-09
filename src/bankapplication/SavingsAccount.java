@@ -23,9 +23,12 @@ public class SavingsAccount extends Account {
     
     public SavingsAccount(String fn, String ln, int bal)
     {
+        super(fn,ln,bal);
+        /*
         super.setBalance(bal);
         super.setFName(fn);
         super.setLName(ln);
+        */
        // super.setErrorMessage(errorMsg);
       
         
