@@ -207,11 +207,12 @@ public class BankForm extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jpControlPanelLayout.createSequentialGroup()
                         .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMinBalance)
-                            .addComponent(lblMaxBalance)
                             .addGroup(jpControlPanelLayout.createSequentialGroup()
                                 .addGap(102, 102, 102)
-                                .addComponent(btnGraph)))
+                                .addComponent(btnGraph))
+                            .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblMinBalance)
+                                .addComponent(lblMaxBalance)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -219,7 +220,9 @@ public class BankForm extends javax.swing.JFrame {
             jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpControlPanelLayout.createSequentialGroup()
                 .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGraph)
+                    .addGroup(jpControlPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnGraph))
                     .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jpControlPanelLayout.createSequentialGroup()
                             .addGap(51, 51, 51)
@@ -328,9 +331,9 @@ public class BankForm extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jpDrawingPanelLayout.createSequentialGroup()
@@ -435,10 +438,10 @@ public class BankForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         timer.cancel();
         timer.purge();
-        int max = account.findMax();
-        int min = account.findMin();
-        lblMaxBalance.setText(Integer.toString(max));
-        lblMinBalance.setText(Integer.toString(min));
+        //int max = account.findMax();
+        //int min = account.findMin();
+        lblMaxBalance.setText("Max Balance = "+account.findMax());
+        lblMinBalance.setText("Min Balance = "+account.findMin());
         lblSimulationStop.setText("Simulation Stopped!");
         btnGraph.setVisible(true); 
         lblSimulationStop.setVisible(true);
@@ -449,8 +452,8 @@ public class BankForm extends javax.swing.JFrame {
 
     private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
         
-       Graph createGraph = new Graph(graphBalance, month);
-       createGraph.setVisible(true);
+       //Graph createGraph = new Graph();
+       //createGraph.setVisible(true);
         
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGraphActionPerformed
