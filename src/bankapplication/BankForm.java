@@ -8,6 +8,8 @@ package bankapplication;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,6 +37,8 @@ public class BankForm extends javax.swing.JFrame {
         lblSimulationStop.setVisible(false);
         lblMaxBalance.setVisible(false);
         lblMinBalance.setVisible(false);
+        btnStopSim.setEnabled(false);
+        btnStartSim.setEnabled(false);
     }
 
     /**
@@ -210,9 +214,8 @@ public class BankForm extends javax.swing.JFrame {
                             .addGroup(jpControlPanelLayout.createSequentialGroup()
                                 .addGap(102, 102, 102)
                                 .addComponent(btnGraph))
-                            .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblMinBalance)
-                                .addComponent(lblMaxBalance)))
+                            .addComponent(lblMinBalance)
+                            .addComponent(lblMaxBalance))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -380,25 +383,54 @@ public class BankForm extends javax.swing.JFrame {
         String fName = txtFirstName.getText();
         String lName = txtLastName.getText();
         String bal = txtInitBalance.getText();       
-        int init = Integer.parseInt(bal);
-        int accountType = cmbAccountType.getSelectedIndex();
-        if(accountType ==0)
+        
+        int accountType = cmbAccountType.getSelectedIndex();   
+        boolean error = false;
+        while(error=true)
         {
-            account = new SavingsAccount(fName, lName, init);
-            account.transaction(1, tranCount, month);
-            printTran(tranCount);
-            tranCount++;
-            month++;
+            if (!Pattern.matches("[a-zA-Z]+",fName)||!Pattern.matches("[a-zA-Z]+",lName))
+            {
+                error=true;
+                JOptionPane.showMessageDialog(null, "Please enter valid name");
+                break;
+            }
+            try
+            {
+                error=false;
+                int init = Integer.parseInt(bal);
+                if(accountType ==0)
+                {
+                    account = new SavingsAccount(fName, lName, init);
+                    
+
+                }
+
+                else if(accountType==1)
+                {
+                    account = new CurrentAccount(fName, lName, init);
+                    
+                }
+                account.transaction(1, tranCount, month);
+                printTran(tranCount);
+                tranCount++;
+                month++;
+                btnCreate.setEnabled(false);
+                txtFirstName.setEnabled(false);
+                txtLastName.setEnabled(false);
+                txtInitBalance.setEnabled(false);
+                cmbAccountType.setEnabled(false);
+                btnStartSim.setEnabled(true);
+                break;
+            }
+            catch(Exception ex)
+            {
+                error=true;
+                JOptionPane.showMessageDialog(null, "Please enter valid balance");
+                break;
+            }    
         }
         
-        if(accountType==1)
-        {
-            account = new CurrentAccount(fName, lName, init);
-            account.transaction(1, tranCount, month);
-            printTran(tranCount);
-            tranCount++;
-            month++;
-        }
+        
         
         
         
@@ -411,6 +443,7 @@ public class BankForm extends javax.swing.JFrame {
 
     private void btnStartSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartSimActionPerformed
         // TODO add your handling code here:
+        btnStopSim.setEnabled(true);
         task = new TimerTask() {
         public void run() {
             
