@@ -27,7 +27,7 @@ public class BankForm extends javax.swing.JFrame {
     int rowCount = 0;
     String[]errorList;
     int errorCount=0;
-    int [] graphBalance = new int[account.getTransaction().size()]; //Create array to hold balance after each transaction using length of arrayList
+    int [] graphBalance; //= new int[account.getTransaction().size()]; //Create array to hold balance after each transaction using length of arrayList
     
     /**
      * Creates new form BankForm
@@ -378,7 +378,8 @@ public class BankForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         String fName = txtFirstName.getText();
         String lName = txtLastName.getText();
-        String bal = txtInitBalance.getText();       
+        String bal = txtInitBalance.getText();
+        lblTotBalance.setText(bal);
         
         int accountType = cmbAccountType.getSelectedIndex();   
         boolean error = false;
@@ -456,6 +457,7 @@ public class BankForm extends javax.swing.JFrame {
         lblMaxBalance.setVisible(true);
         lblMinBalance.setVisible(true);    
         
+        graphBalance = new int[account.getTransaction().size()];
         for (int i = 0; i < graphBalance.length; i++) 
         {
             graphBalance[i] = account.getBalance(); //Add balance after each transaction to graphBalance array
