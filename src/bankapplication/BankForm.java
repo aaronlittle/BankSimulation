@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Pattern;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -299,6 +301,8 @@ public class BankForm extends javax.swing.JFrame {
                 .addGap(0, 116, Short.MAX_VALUE))
         );
 
+        jScrollPane2.setEnabled(false);
+
         tblTransaction.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -417,6 +421,11 @@ public class BankForm extends javax.swing.JFrame {
                         break;
                     }
                 }
+                /*
+                account.clearTransactions();
+                clearTable();
+                txtErrorList.setText("");
+                */
                 account.transaction(1,1);
                 printTran(0);
                 enableStart();//disables all buttons, enables start button
@@ -480,10 +489,13 @@ public class BankForm extends javax.swing.JFrame {
 
     private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
         
-       Graph createGraph = new Graph(graphBalance, month);
+       Graph createGraph = new Graph(graphBalance, month);      
+       BankForm newSim = new BankForm();
+       newSim.setVisible(true);
        createGraph.setVisible(true);
-        
-
+       this.dispose();
+       
+       //enableCreate();
     }//GEN-LAST:event_btnGraphActionPerformed
 
     /**
@@ -529,10 +541,11 @@ public class BankForm extends javax.swing.JFrame {
     }
     
     public void printTran(int count)                        
-    {        
+    {     
+        DefaultTableModel model = (DefaultTableModel)tblTransaction.getModel();
         Object[] row = {"Month "+account.getTransaction().get(count).getMonth(), account.getTransaction().get(count).getInOrOut(), account.getTransaction().get(count).getAmount(), account.getTransaction().get(count).getBalance()};
-        DefaultTableModel model = (DefaultTableModel) tblTransaction.getModel();
         model.addRow(row);
+
     }
     
     public void printError(String message)
@@ -559,14 +572,41 @@ public class BankForm extends javax.swing.JFrame {
     
     public void enableStart()
     {
-        btnCreate.setEnabled(false);
+        btnCreate.setEnabled(false);              
         txtFirstName.setEnabled(false);
         txtLastName.setEnabled(false);
         txtInitBalance.setEnabled(false);
         cmbAccountType.setEnabled(false);
         btnStartSim.setEnabled(true);   
+        
+               
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtInitBalance.setText("");
+        
+        
+    }
+    public void enableCreate()
+    {
+        btnCreate.setEnabled(true);
+        txtFirstName.setEnabled(true);
+        txtLastName.setEnabled(true);
+        txtInitBalance.setEnabled(true);
+        cmbAccountType.setEnabled(true);
+        btnStartSim.setEnabled(false);  
+        btnStopSim.setEnabled(false);
     }
     
+    public void clearTable()
+    {
+        DefaultTableModel model = (DefaultTableModel)tblTransaction.getModel();
+
+        while (model.getRowCount() > 0){
+            for (int i = 0; i < model.getRowCount(); ++i){
+            model.removeRow(i);
+            }
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

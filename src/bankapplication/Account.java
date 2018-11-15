@@ -95,7 +95,9 @@ public abstract class Account {
         
         return (Integer.toString(min)+"      Month "+Integer.toString(month));
     }
-
-
-
+    
+    public void clearTransactions()
+    {
+        transList.clear();
     }
+ }
