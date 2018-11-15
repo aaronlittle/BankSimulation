@@ -15,32 +15,14 @@ import java.util.TimerTask;
 public class SavingsAccount extends Account {
     private int annualWithdraw = 0;
     private int interest=0;
-    //private String errorMsg = "Error! Savings Account cannot be under £100";
     public SavingsAccount()
     {
-        //connor test comment
-    }
-    
+    }  
     public SavingsAccount(String fn, String ln, int bal)
     {
-        super(fn,ln,bal);
-        /*
-        super.setBalance(bal);
-        super.setFName(fn);
-        super.setLName(ln);
-        */
-       // super.setErrorMessage(errorMsg);
-      
-        
+        super(fn,ln,bal);            
     }
     
-        
-   /* public String getErrorMessage()
-    {
-        return this.errorMsg;
-    }
-    */
-
     public String errors(int amount)
     {
         String error=null;
@@ -55,27 +37,9 @@ public class SavingsAccount extends Account {
         }
         return error;
     }
-    public void message(int x)
-    {
-        
-        if (x==1)
-        {
-            setMessage("Error! Invalid Funds, transaction rejected");
-        }
-        else if (x==2)
-        {
-            //msg="3% interest added";
-        }
-        else if(x==3)
-        {
-           // msg="Maximum annual transactions made(2)";
-        }
-     
-    }
     
-    public void transaction(int rand, int count, int month)
-    {
-        
+    public void transaction(int rand,int month)
+    {       
         setMessage(null);
         Random random = new Random();
         int num = random.nextInt(1000)+1;
@@ -106,9 +70,7 @@ public class SavingsAccount extends Account {
                         interest = interest + ((getBalance()/100)*3);
                         addInterest(month);
                     }
-
-                }
-                
+                }                
                 inOrOut="In";
                 break;
             case 2:
@@ -122,7 +84,7 @@ public class SavingsAccount extends Account {
                     annualWithdraw = annualWithdraw +1;
                     if(checkWithdrawal(annualWithdraw, month)==true)
                     {
-                        setMessage("Maximum annual transactions made(2)");
+                        setMessage("Maximum annual withdrawals made(2)");
                         setBalance(currentBalance);
                     }
                     else
@@ -138,8 +100,7 @@ public class SavingsAccount extends Account {
                 break;                                                                       
         }
         
-        setTransaction(count,month, inOrOut, num, getBalance());
-       // getTransaction()[count] = new Transaction(month, inOrOut, num, getBalance());
+        setTransaction(month, inOrOut, num, getBalance());
     }
     
     public boolean checkWithdrawal(int withdrawCount, int month)
@@ -148,8 +109,7 @@ public class SavingsAccount extends Account {
         if (month %12 !=0)
         {
             if(month %12 ==1)
-            {
-                
+            {               
                 annualWithdraw = 0;
                 error=false;
             }
@@ -168,8 +128,5 @@ public class SavingsAccount extends Account {
             setBalance(getBalance()+interest);
             interest =0;
         }
-    }
-    
-    
-    
+    }           
 }

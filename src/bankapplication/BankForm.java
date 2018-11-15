@@ -17,28 +17,22 @@ import javax.swing.table.DefaultTableModel;
  * @author Wral
  */
 public class BankForm extends javax.swing.JFrame {
+    
     Account account;
     Timer timer;
     TimerTask task;
-    int month = 1;
-    
-    int tranCount = 0;
+    int month = 2;
+    int tranCount = 1;
     int rowCount = 0;
     String[]errorList;
     int errorCount=0;
     int[] graphBalance = new int[100];
-    
     /**
      * Creates new form BankForm
      */
     public BankForm() {
         initComponents();
-        btnGraph.setVisible(false); 
-        lblSimulationStop.setVisible(false);
-        lblMaxBalance.setVisible(false);
-        lblMinBalance.setVisible(false);
-        btnStopSim.setEnabled(false);
-        btnStartSim.setEnabled(false);
+        disableAtStart();//disables all buttons not needed to create account
     }
 
     /**
@@ -401,25 +395,15 @@ public class BankForm extends javax.swing.JFrame {
                 if(accountType ==0)
                 {
                     account = new SavingsAccount(fName, lName, init);
-                    
-
                 }
 
                 else if(accountType==1)
                 {
                     account = new CurrentAccount(fName, lName, init);
-                    
                 }
-                account.transaction(1, tranCount, month);
-                printTran(tranCount);
-                tranCount++;
-                month++;
-                btnCreate.setEnabled(false);
-                txtFirstName.setEnabled(false);
-                txtLastName.setEnabled(false);
-                txtInitBalance.setEnabled(false);
-                cmbAccountType.setEnabled(false);
-                btnStartSim.setEnabled(true);
+                account.transaction(1,1);
+                printTran(0);
+                
                 break;
             }
             catch(Exception ex)
@@ -428,13 +412,8 @@ public class BankForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Please enter valid balance");
                 break;
             }    
-        }
-        
-        
-        
-        
-        
-        
+        }  
+        enableStart();//disables all buttons, enables start button
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameActionPerformed
@@ -445,11 +424,10 @@ public class BankForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnStopSim.setEnabled(true);
         task = new TimerTask() {
-        public void run() {
-            
+        public void run() { 
             
             lblMonth.setText("Month "+ month);
-            account.transaction(randNum(),tranCount, month);
+            account.transaction(randNum(),month);
             printTran(tranCount);
             printError(account.getMessage());
             lblTotBalance.setText(Integer.toString(account.getBalance()));
@@ -457,30 +435,25 @@ public class BankForm extends javax.swing.JFrame {
             lblTotWithdrawn.setText(Integer.toString(account.getTotWithdraw()));
             tranCount ++;
             month++;
-            graphBalance[month] = account.getBalance();                                              
+            graphBalance[month] = account.getBalance();   
+            
         }
     };
      timer = new Timer();
-     timer.schedule(task, 5000, 5000);
-
-        
-        
+     timer.schedule(task, 5000, 5000);               
     }//GEN-LAST:event_btnStartSimActionPerformed
 
     private void btnStopSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopSimActionPerformed
         // TODO add your handling code here:
         timer.cancel();
         timer.purge();
-        //int max = account.findMax();
-        //int min = account.findMin();
         lblMaxBalance.setText("Max Balance = "+account.findMax());
         lblMinBalance.setText("Min Balance = "+account.findMin());
         lblSimulationStop.setText("Simulation Stopped!");
         btnGraph.setVisible(true); 
         lblSimulationStop.setVisible(true);
         lblMaxBalance.setVisible(true);
-        lblMinBalance.setVisible(true);
-      
+        lblMinBalance.setVisible(true);      
     }//GEN-LAST:event_btnStopSimActionPerformed
 
     private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
@@ -488,7 +461,7 @@ public class BankForm extends javax.swing.JFrame {
        //Graph createGraph = new Graph();
        //createGraph.setVisible(true);
         
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnGraphActionPerformed
 
     /**
@@ -524,8 +497,7 @@ public class BankForm extends javax.swing.JFrame {
                 new BankForm().setVisible(true);
             }
         });
-    }
-    
+    }   
     public int randNum(){
         
         Random random = new Random();
@@ -535,8 +507,7 @@ public class BankForm extends javax.swing.JFrame {
     }
     
     public void printTran(int count)                        
-    {
-        
+    {        
         Object[] row = {"Month "+account.getTransaction().get(count).getMonth(), account.getTransaction().get(count).getInOrOut(), account.getTransaction().get(count).getAmount(), account.getTransaction().get(count).getBalance()};
         DefaultTableModel model = (DefaultTableModel) tblTransaction.getModel();
         model.addRow(row);
@@ -551,11 +522,27 @@ public class BankForm extends javax.swing.JFrame {
         else
         {
             txtErrorList.append("");
-        }
-            
-        
-
-                                             
+        }                                                              
+    }
+    
+    public void disableAtStart()
+    {
+        btnGraph.setVisible(false); 
+        lblSimulationStop.setVisible(false);
+        lblMaxBalance.setVisible(false);
+        lblMinBalance.setVisible(false);
+        btnStopSim.setEnabled(false);
+        btnStartSim.setEnabled(false);
+    }
+    
+    public void enableStart()
+    {
+        btnCreate.setEnabled(false);
+        txtFirstName.setEnabled(false);
+        txtLastName.setEnabled(false);
+        txtInitBalance.setEnabled(false);
+        cmbAccountType.setEnabled(false);
+        btnStartSim.setEnabled(true);   
     }
     
     
