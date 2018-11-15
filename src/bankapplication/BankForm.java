@@ -406,7 +406,7 @@ public class BankForm extends javax.swing.JFrame {
                 }
                 account.transaction(1,1);
                 printTran(0);
-                
+                enableStart();//disables all buttons, enables start button
                 break;
             }
             catch(Exception ex)
@@ -416,7 +416,7 @@ public class BankForm extends javax.swing.JFrame {
                 break;
             }    
         }  
-        enableStart();//disables all buttons, enables start button
+        
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameActionPerformed
@@ -426,6 +426,7 @@ public class BankForm extends javax.swing.JFrame {
     private void btnStartSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartSimActionPerformed
         // TODO add your handling code here:
         btnStopSim.setEnabled(true);
+        btnStartSim.setEnabled(false);
         task = new TimerTask() {
         public void run() { 
             
@@ -442,7 +443,7 @@ public class BankForm extends javax.swing.JFrame {
         }
     };
      timer = new Timer();
-     timer.schedule(task, 5000, 5000);               
+     timer.schedule(task, 1000, 1000);               
     }//GEN-LAST:event_btnStartSimActionPerformed
 
     private void btnStopSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopSimActionPerformed

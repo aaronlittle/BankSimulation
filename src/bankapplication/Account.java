@@ -60,7 +60,7 @@ public abstract class Account {
     public int getBalance(){
         return this.balance;} 
     //abstract methods
-    public abstract String errors(int amount);
+    public abstract boolean balanceErrors(int amount);
     public abstract void transaction(int rand,int month);
     
     //other methods, not to be overidden 

@@ -20,16 +20,17 @@ public class CurrentAccount extends Account {
     {
         super(fn,ln,bal);
     }    
-    public String errors(int amount)
+    public boolean balanceErrors(int amount)
     {
-        String error=null;
+        boolean error=false;
         if(super.getBalance()<-1000)
         {
-            error = "Error! Invalid Funds, transaction rejected";
+           // error = "Error! Invalid Funds, transaction rejected";
+            error = true;
         }
         else
         {
-            error=null;
+            error=false;
         }
         return error;
     }
@@ -45,7 +46,7 @@ public class CurrentAccount extends Account {
         switch(rand)
         {
             case 1:      
-                if(errors(getBalance()+num)!=null)
+                if(balanceErrors(getBalance()+num)==true)
                 {
                     setBalance(currentBalance); 
                     setMessage("Error! Invalid Funds, transaction rejected");
@@ -72,7 +73,7 @@ public class CurrentAccount extends Account {
                 inOrOut="In";
                 break;
             case 2:
-                if(errors(getBalance()-num)!=null)
+                if(balanceErrors(getBalance()-num)==true)
                 {
                     setBalance(currentBalance); 
                     setMessage("Error! Invalid Funds, transaction rejected");

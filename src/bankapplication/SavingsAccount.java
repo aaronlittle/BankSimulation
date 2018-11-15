@@ -23,17 +23,18 @@ public class SavingsAccount extends Account {
         super(fn,ln,bal);            
     }
     
-    public String errors(int amount)
+    public boolean balanceErrors(int amount)
     {
-        String error=null;
+        boolean error=false;
        
         if (amount<100)
         {
-            error = "Error! Invalid Funds, transaction rejected";
+            error = true;
+            //error = "Error! Invalid Funds, transaction rejected";
         }
         else
         {
-            error=null;   
+            error=false;   
         }
         return error;
     }
@@ -46,17 +47,17 @@ public class SavingsAccount extends Account {
         String inOrOut="";
         int currentBalance = getBalance();
         
-        String err1 = errors(getBalance()+num);
-        String err2 = errors(getBalance()-num);
+       // String err1 = balanceErrors(getBalance()+num);
+       // String err2 = balanceErrors(getBalance()-num);
         switch(rand)
         {
             case 1:      
-                if(err1!=null)
+                if(balanceErrors(getBalance()+num)==true)
                 {
                     setBalance(currentBalance); 
-                    setMessage(err1);
+                    setMessage("Error! Invalid Funds, transaction rejected");
                 }
-                else
+                else if(balanceErrors(getBalance()+num)==false)
                 {
                     if (month==1)
                     {
@@ -74,15 +75,15 @@ public class SavingsAccount extends Account {
                 inOrOut="In";
                 break;
             case 2:
-                if(err2!=null)
+                if(balanceErrors(getBalance()-num)==true)
                 {
                     setBalance(currentBalance); 
-                    setMessage(err2);
+                    setMessage("Error! Invalid Funds, transaction rejected");
                 }
-                else
+                else if(balanceErrors(getBalance()-num)==false)
                 {
-                    annualWithdraw = annualWithdraw +1;
-                    if(checkWithdrawal(annualWithdraw, month)==true)
+                    annualWithdraw++;
+                    if(checkWithdrawal(month)==true)
                     {
                         setMessage("Maximum annual withdrawals made(2)");
                         setBalance(currentBalance);
@@ -103,24 +104,31 @@ public class SavingsAccount extends Account {
         setTransaction(month, inOrOut, num, getBalance());
     }
     
-    public boolean checkWithdrawal(int withdrawCount, int month)
+    public boolean checkWithdrawal(int month)
     {   
-        boolean error = false;
-        if (month %12 == 1)
+        boolean error=false;
+        if (month %12 == 0)
         {
-            annualWithdraw = 0;
-                error=false;
-            /*if(month %12 == 1)
-            {               
-                annualWithdraw = 0;
-                error=false;
-            }
-            //else */
-        } else {
-             if (withdrawCount>2)
+            if (annualWithdraw>2)
             {
                 error= true;
-            }   
+            }
+            else
+            {
+                error=false;
+            }
+            annualWithdraw = 0;                                    
+        } 
+        else
+        {
+            if (annualWithdraw>2)
+            {
+                error= true;
+            }  
+            else
+            {
+                error=false;
+            }
         }        
         return error;
     }
