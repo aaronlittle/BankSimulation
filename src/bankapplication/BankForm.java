@@ -398,11 +398,24 @@ public class BankForm extends javax.swing.JFrame {
                 if(accountType ==0)
                 {
                     account = new SavingsAccount(fName, lName, init);
+                    if(init <100)
+                    {
+                        JOptionPane.showMessageDialog(null, "Start balance cant be under £100");
+                        error=true;
+                        break;
+                    }
+                    
                 }
 
                 else if(accountType==1)
                 {
                     account = new CurrentAccount(fName, lName, init);
+                    if(init <1)
+                    {
+                        JOptionPane.showMessageDialog(null, "Start balance cant be under £1");
+                        error=true;
+                        break;
+                    }
                 }
                 account.transaction(1,1);
                 printTran(0);
