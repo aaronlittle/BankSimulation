@@ -106,17 +106,21 @@ public class SavingsAccount extends Account {
     public boolean checkWithdrawal(int withdrawCount, int month)
     {   
         boolean error = false;
-        if (month %12 !=0)
+        if (month %12 == 1)
         {
-            if(month %12 ==1)
+            annualWithdraw = 0;
+                error=false;
+            /*if(month %12 == 1)
             {               
                 annualWithdraw = 0;
                 error=false;
             }
-            else if (withdrawCount>2)
+            //else */
+        } else {
+             if (withdrawCount>2)
             {
                 error= true;
-            }
+            }   
         }        
         return error;
     }
@@ -127,6 +131,7 @@ public class SavingsAccount extends Account {
         {
             setBalance(getBalance()+interest);
             interest =0;
+            setMessage("3% interest added");
         }
     }           
 }

@@ -68,7 +68,7 @@ public abstract class Account {
     public String findMax()
     {
         int max = transList.get(0).getBalance();
-        int month = 0;
+        int month = 1;
         String foundMax = "";
         for(int i = 0; i<transList.size();i++)
         {
@@ -83,7 +83,7 @@ public abstract class Account {
     public String findMin()
     {
         int min = transList.get(0).getBalance();
-        int month=0;
+        int month=1;
         for(int i = 0; i<transList.size();i++)
         {
             if(min>transList.get(i).getBalance())

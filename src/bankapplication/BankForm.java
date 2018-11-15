@@ -458,8 +458,8 @@ public class BankForm extends javax.swing.JFrame {
 
     private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
         
-       //Graph createGraph = new Graph();
-       //createGraph.setVisible(true);
+       Graph createGraph = new Graph();
+       createGraph.setVisible(true);
         
 
     }//GEN-LAST:event_btnGraphActionPerformed
