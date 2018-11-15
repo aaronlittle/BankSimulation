@@ -77,6 +77,11 @@ public class Graph extends javax.swing.JFrame {
             }
         });
     }
+    
+    public Graph (int[] balance, int month) {
+        
+    }
+            
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

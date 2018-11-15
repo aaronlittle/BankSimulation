@@ -5,6 +5,7 @@
  */
 package bankapplication;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +27,8 @@ public class BankForm extends javax.swing.JFrame {
     int rowCount = 0;
     String[]errorList;
     int errorCount=0;
-    int[] graphBalance = new int[100];
+    int [] graphBalance = new int[account.getTransaction().size()]; //Create array to hold balance after each transaction using length of arrayList
+    
     /**
      * Creates new form BankForm
      */
@@ -435,8 +437,7 @@ public class BankForm extends javax.swing.JFrame {
             lblTotWithdrawn.setText(Integer.toString(account.getTotWithdraw()));
             tranCount ++;
             month++;
-            graphBalance[month] = account.getBalance();   
-            
+           
         }
     };
      timer = new Timer();
@@ -453,13 +454,18 @@ public class BankForm extends javax.swing.JFrame {
         btnGraph.setVisible(true); 
         lblSimulationStop.setVisible(true);
         lblMaxBalance.setVisible(true);
-        lblMinBalance.setVisible(true);      
+        lblMinBalance.setVisible(true);    
+        
+        for (int i = 0; i < graphBalance.length; i++) 
+        {
+            graphBalance[i] = account.getBalance(); //Add balance after each transaction to graphBalance array
+        }
     }//GEN-LAST:event_btnStopSimActionPerformed
 
     private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
         
-       //Graph createGraph = new Graph();
-       //createGraph.setVisible(true);
+       Graph createGraph = new Graph(graphBalance, month);
+       createGraph.setVisible(true);
         
 
     }//GEN-LAST:event_btnGraphActionPerformed
