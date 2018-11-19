@@ -68,8 +68,7 @@ public class SavingsAccount extends Account {
                     {
                         setBalance(getBalance()+num);    
                         setTotDeposit(getTotDeposit()+num);
-                        interest = interest + ((getBalance()/100)*3);
-                        addInterest(month);
+
                     }
                 }                
                 inOrOut="In";
@@ -92,32 +91,56 @@ public class SavingsAccount extends Account {
                     {
                         setBalance(getBalance()-num);
                         setTotWithdraw(getTotWithdraw()+num);
-                        interest = interest + ((getBalance()/100)*3);
-                        addInterest(month);
                     }
                     
                 } 
+           
                 inOrOut="Out";
                 break;                                                                       
         }
-        
+        if(month!=1)
+        {
+            interest = interest + ((getBalance()/100)*3);
+            addInterest(month);
+        }
+        if(month%12==0)
+        {
+            annualWithdraw=0;
+        }
+
         setTransaction(month, inOrOut, num, getBalance());
     }
     
     public boolean checkWithdrawal(int month)
     {   
         boolean error=false;
+        if(annualWithdraw>2)
+        {
+            error=true;
+        }
+        else
+        {
+           error = false;
+        }
+        
+
+
+
+        /*
         if (month %12 == 0)
         {
+            annualWithdraw=0;
             if (annualWithdraw>2)
             {
-                error= true;
+                error= true;               
+
             }
             else
             {
                 error=false;
+
             }
-            annualWithdraw = 0;                                    
+            
         } 
         else
         {
@@ -130,6 +153,7 @@ public class SavingsAccount extends Account {
                 error=false;
             }
         }        
+*/
         return error;
     }
     

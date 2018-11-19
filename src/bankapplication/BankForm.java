@@ -95,22 +95,24 @@ public class BankForm extends javax.swing.JFrame {
 
         jLabel1.setText("First Name");
 
-        txtFirstName.setText("jTextField1");
+        txtFirstName.setToolTipText("");
         txtFirstName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFirstNameActionPerformed(evt);
             }
         });
 
-        txtLastName.setText("jTextField2");
-
-        jLabel2.setText("Last Nam");
+        jLabel2.setText("Last Name");
 
         jLabel3.setText("Account Type");
 
         cmbAccountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Savings", "Current" }));
 
-        txtInitBalance.setText("jTextField3");
+        txtInitBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInitBalanceActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Initial Balance");
 
@@ -301,8 +303,6 @@ public class BankForm extends javax.swing.JFrame {
                 .addGap(0, 116, Short.MAX_VALUE))
         );
 
-        jScrollPane2.setEnabled(false);
-
         tblTransaction.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -314,9 +314,16 @@ public class BankForm extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tblTransaction.setRequestFocusEnabled(false);
@@ -497,6 +504,10 @@ public class BankForm extends javax.swing.JFrame {
        
        //enableCreate();
     }//GEN-LAST:event_btnGraphActionPerformed
+
+    private void txtInitBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInitBalanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInitBalanceActionPerformed
 
     /**
      * @param args the command line arguments
