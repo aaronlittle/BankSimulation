@@ -78,7 +78,7 @@ public abstract class Account {
                 month=transList.get(i).getMonth();
             }
         }
-        return (Integer.toString(max)+"      Month "+Integer.toString(month));
+        return ("£"+Integer.toString(max)+"  Month "+Integer.toString(month));
     }
     public String findMin()
     {
@@ -93,7 +93,7 @@ public abstract class Account {
             }
         }
         
-        return (Integer.toString(min)+"      Month "+Integer.toString(month));
+        return ("£"+Integer.toString(min)+"  Month "+Integer.toString(month));
     }
     
     public void clearTransactions()

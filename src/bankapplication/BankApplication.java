@@ -16,7 +16,7 @@ public class BankApplication {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        BankForm myApp = new BankForm();
+        BankSim myApp = new BankSim();
         myApp.setVisible(true);
         
         
