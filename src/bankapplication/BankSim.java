@@ -23,10 +23,7 @@ public class BankSim extends javax.swing.JFrame {
     private Timer timer;
     private TimerTask task;
     private int month = 2;
-    private int tranCount = 1;
-    private int rowCount = 0;
-    private String[]errorList;
-    private int errorCount=0;
+    private int tranCount;//postion in the array of transactions
     private int [] graphBalance; //= new int[account.getTransaction().size()]; //Create array to hold balance after each transaction using length of arrayList
 
     /**
@@ -86,10 +83,12 @@ public class BankSim extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 255));
+        setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 255));
 
         jpControlPanel.setBackground(new java.awt.Color(204, 204, 255));
+        jpControlPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -123,43 +122,59 @@ public class BankSim extends javax.swing.JFrame {
         });
         jPanel1.add(btnStopSim);
 
+        jpControlPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(507, 0, 903, -1));
+
         jLabel1.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         jLabel1.setText("First Name");
+        jpControlPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         jLabel2.setText("Last Name");
+        jpControlPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         jLabel3.setText("Account Type");
+        jpControlPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         jLabel4.setText("Start Balance");
+        jpControlPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
         txtFirstName.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 18)); // NOI18N
+        jpControlPanel.add(txtFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 271, 35));
 
         txtLastName.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 18)); // NOI18N
+        jpControlPanel.add(txtLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 271, 39));
 
         txtInitBalance.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 18)); // NOI18N
+        jpControlPanel.add(txtInitBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 271, 34));
 
         cmbAccountType.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 18)); // NOI18N
         cmbAccountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Savings Account", "Current Account" }));
+        jpControlPanel.add(cmbAccountType, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 271, 40));
 
         lblSimulationStop.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 36)); // NOI18N
         lblSimulationStop.setText("jLabel5");
+        jpControlPanel.add(lblSimulationStop, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 63, 384, -1));
 
         lblMinLabel.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         lblMinLabel.setText("Minimum Balance");
+        jpControlPanel.add(lblMinLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, -1, -1));
 
         lblMaxLabel.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         lblMaxLabel.setText("Maximum Balance");
+        jpControlPanel.add(lblMaxLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(849, 120, -1, -1));
 
         lblMaxBalance.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 22)); // NOI18N
         lblMaxBalance.setText("jLabel5");
+        jpControlPanel.add(lblMaxBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(849, 165, -1, -1));
 
         lblMinBalance.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 22)); // NOI18N
         lblMinBalance.setText("jLabel5");
+        jpControlPanel.add(lblMinBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 165, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
+        jpControlPanel.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 21, -1, -1));
 
         btnCreate.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         btnCreate.setText("Create Account");
@@ -168,6 +183,7 @@ public class BankSim extends javax.swing.JFrame {
                 btnCreateActionPerformed(evt);
             }
         });
+        jpControlPanel.add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, 220, 50));
 
         btnGraph.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         btnGraph.setText("Show Graph");
@@ -179,135 +195,43 @@ public class BankSim extends javax.swing.JFrame {
                 btnGraphActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jpControlPanelLayout = new javax.swing.GroupLayout(jpControlPanel);
-        jpControlPanel.setLayout(jpControlPanelLayout);
-        jpControlPanelLayout.setHorizontalGroup(
-            jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpControlPanelLayout.createSequentialGroup()
-                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpControlPanelLayout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(btnCreate))
-                    .addGroup(jpControlPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(22, 22, 22)
-                                .addComponent(cmbAccountType, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4))
-                                .addGap(30, 30, 30)
-                                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtInitBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(53, 53, 53)
-                                .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpControlPanelLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpControlPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSimulationStop, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMinLabel)
-                                    .addComponent(lblMinBalance))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMaxLabel)
-                                    .addComponent(lblMaxBalance)))
-                            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                                .addGap(113, 113, 113)
-                                .addComponent(btnGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(199, 199, 199))))
-            .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jpControlPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel23)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jpControlPanelLayout.setVerticalGroup(
-            jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
-                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(jpControlPanelLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jpControlPanelLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(cmbAccountType, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtInitBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCreate)
-                .addGap(0, 24, Short.MAX_VALUE))
-            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblSimulationStop)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMinLabel)
-                    .addComponent(lblMaxLabel))
-                .addGap(9, 9, 9)
-                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMinBalance)
-                    .addComponent(lblMaxBalance))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
-            .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jpControlPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel23)
-                    .addGap(0, 379, Short.MAX_VALUE)))
-        );
+        jpControlPanel.add(btnGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(1024, 314, 187, 75));
 
         jpDrawingPanel.setBackground(new java.awt.Color(204, 255, 204));
+        jpDrawingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTotDeposit.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         lblTotDeposit.setText("0.00");
+        jpDrawingPanel.add(lblTotDeposit, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, 141, -1));
 
         jLabel19.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         jLabel19.setText("Total Deposited:");
+        jpDrawingPanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         jLabel18.setText("Total Withdrawn:");
+        jpDrawingPanel.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         lblTotWithdrawn.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         lblTotWithdrawn.setText("0.00");
+        jpDrawingPanel.add(lblTotWithdrawn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 141, -1));
 
         lblTotBalance.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         lblTotBalance.setText("0.00");
+        jpDrawingPanel.add(lblTotBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 141, -1));
 
         jLabel17.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         jLabel17.setText("Account Balance:");
+        jpDrawingPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         lblMonth.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         lblMonth.setText("Month 1");
+        jpDrawingPanel.add(lblMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         lblName.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         lblName.setForeground(new java.awt.Color(204, 0, 204));
         lblName.setText("jLabel5");
+        jpDrawingPanel.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 264, -1));
 
         jScrollPane2.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
 
@@ -337,88 +261,22 @@ public class BankSim extends javax.swing.JFrame {
         tblTransaction.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(tblTransaction);
 
+        jpDrawingPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(471, 61, -1, 334));
+
         jLabel20.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         jLabel20.setText("Transactions");
+        jpDrawingPanel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 16, -1, -1));
 
         txtErrorList.setColumns(20);
         txtErrorList.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
         txtErrorList.setRows(5);
         jScrollPane3.setViewportView(txtErrorList);
 
+        jpDrawingPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(932, 61, 463, 334));
+
         jLabel21.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 24)); // NOI18N
         jLabel21.setText("Messages");
-
-        javax.swing.GroupLayout jpDrawingPanelLayout = new javax.swing.GroupLayout(jpDrawingPanel);
-        jpDrawingPanel.setLayout(jpDrawingPanelLayout);
-        jpDrawingPanelLayout.setHorizontalGroup(
-            jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                        .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMonth)
-                                    .addComponent(jLabel17)))
-                            .addComponent(jLabel18))
-                        .addGap(52, 52, 52)
-                        .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblTotBalance, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                            .addComponent(lblTotWithdrawn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblTotDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(64, 64, 64)
-                .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jLabel20)))
-                .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel21)
-                        .addGap(173, 173, 173))
-                    .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3)))
-                .addContainerGap())
-        );
-        jpDrawingPanelLayout.setVerticalGroup(
-            jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                        .addComponent(lblName)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblMonth)
-                        .addGap(24, 24, 24)
-                        .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(lblTotBalance))
-                        .addGap(38, 38, 38)
-                        .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel18)
-                            .addComponent(lblTotWithdrawn))
-                        .addGap(34, 34, 34)
-                        .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel19)
-                            .addComponent(lblTotDeposit))
-                        .addContainerGap(85, Short.MAX_VALUE))
-                    .addGroup(jpDrawingPanelLayout.createSequentialGroup()
-                        .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel21))
-                        .addGap(13, 13, 13)
-                        .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
+        jpDrawingPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1121, 16, -1, -1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -430,9 +288,9 @@ public class BankSim extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jpControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -454,61 +312,45 @@ public class BankSim extends javax.swing.JFrame {
         String fName = txtFirstName.getText();
         String lName = txtLastName.getText();
         String bal = txtInitBalance.getText();
-        lblTotBalance.setText(bal);
-        tranCount=1;
-        month=2;
-
+        lblTotBalance.setText("£"+bal);
         int accountType = cmbAccountType.getSelectedIndex();
         boolean error = false;
-        while(error=true)
-        {
-            if (!Pattern.matches("[a-zA-Z]+",fName)||!Pattern.matches("[a-zA-Z]+",lName))
-            {
+        while(error=true){
+            if (!Pattern.matches("[a-zA-Z]+",fName)||!Pattern.matches("[a-zA-Z]+",lName)){
                 error=true;
                 JOptionPane.showMessageDialog(null, "Please enter valid name");
                 break;
             }
-            try
-            {
+            try{
                 error=false;
                 int init = Integer.parseInt(bal);
-                if(accountType ==0)
-                {
+                if(accountType ==0){
                     account = new SavingsAccount(fName, lName, init);
-                    if(init <100)
-                    {
+                    if(init <100){
                         JOptionPane.showMessageDialog(null, "Start balance cant be under £100");
                         error=true;
                         break;
                     }
-
                 }
 
-                else if(accountType==1)
-                {
+                else if(accountType==1){
                     account = new CurrentAccount(fName, lName, init);
-                    if(init <1)
-                    {
+                    if(init <1){
                         JOptionPane.showMessageDialog(null, "Start balance cant be under £1");
                         error=true;
                         break;
                     }
-                }
-
-                account.clearTransactions();
-                
-                
-
+                }                                             
                 lblName.setText(account.getFName()+" "+account.getLName());
-                account.transaction(1,1);
+                account.transaction(1,1);  //first transaction at month 1 and as a deposit               
+                printTran(0);//print first element in transaction array onto table 
                 tranCount=1;
-                printTran(0);
-                printError(account.getMessage());
+                month=2;
+                printMessage(account.getMessage());//print message if there is one
                 enableStart();//disables all buttons, enables start button
                 break;
             }
-            catch(Exception ex)
-            {
+            catch(Exception ex){
                 error=true;
                 JOptionPane.showMessageDialog(null, "Please enter valid balance");
                 break;
@@ -526,6 +368,7 @@ public class BankSim extends javax.swing.JFrame {
 
     private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestartActionPerformed
         JDialog.setDefaultLookAndFeelDecorated(true);
+        //ask userto confirm they want to restart
         int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to restart?", "Confirm",
             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.NO_OPTION) {
@@ -534,16 +377,15 @@ public class BankSim extends javax.swing.JFrame {
         else if (response == JOptionPane.YES_OPTION) {
             enableCreate();
             clearTable();
+            account.clearTransactions();
             txtErrorList.setText("");
         } 
         else if (response == JOptionPane.CLOSED_OPTION) {
             System.out.println("JOptionPane closed");
         }
-
     }//GEN-LAST:event_btnRestartActionPerformed
 
     private void btnStartSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartSimActionPerformed
-        // TODO add your handling code here:
         btnStopSim.setEnabled(true);
         btnStartSim.setEnabled(false);
         task = new TimerTask() {
@@ -552,7 +394,7 @@ public class BankSim extends javax.swing.JFrame {
                 lblMonth.setText("Month "+ month);
                 account.transaction(randNum(),month);
                 printTran(tranCount);
-                printError(account.getMessage());
+                printMessage(account.getMessage());
                 lblTotBalance.setText("£"+Integer.toString(account.getBalance()));
                 lblTotDeposit.setText("£"+Integer.toString(account.getTotDeposit()));
                 lblTotWithdrawn.setText("£"+Integer.toString(account.getTotWithdraw()));
@@ -638,13 +480,11 @@ public class BankSim extends javax.swing.JFrame {
 
     }
     
-    private void printError(String message){
-        if (message !=null)
-        {
+    private void printMessage(String message){
+        if (message !=null){
             txtErrorList.append("Month "+month+ "   "+message+"\n");
         }
-        else
-        {
+        else{
             txtErrorList.append("");
         }                                                              
     }
@@ -659,6 +499,7 @@ public class BankSim extends javax.swing.JFrame {
         btnStopSim.setEnabled(false);
         btnStartSim.setEnabled(false);
         btnRestart.setEnabled(false);
+        lblName.setText("");
               
     }
     

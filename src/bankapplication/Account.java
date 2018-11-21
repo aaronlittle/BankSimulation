@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Wral
  */
-public abstract class Account {
+public abstract class Account{
     private String fName = "";
     private String lName = "";
     private String msg="";
