@@ -46,26 +46,21 @@ public class CurrentAccount extends Account {
         switch(rand)
         {
             case 1:      
-                if(balanceErrors(getBalance()+num)==true)
-                {
+                if(balanceErrors(getBalance()+num)==true){
                     setBalance(currentBalance); 
                     setMessage("Error! Invalid Funds, transaction rejected");
                 }
-                else
-                {
-                    if(month==1&&getBalance()>=500)
-                    {
+                else{
+                    if(month==1&&getBalance()>=500){
                         num=currentBalance;
                         setBalance(getBalance()+10);
                         setMessage("£500 deposited in first month, rewarded £10");                       
                     }
-                    else if(month==1)
-                    {
+                    else if(month==1){
                         num=currentBalance;
                         setBalance(currentBalance);
                     }
-                    else
-                    {
+                    else{
                         setBalance(getBalance()+num);
                         setTotDeposit(getTotDeposit()+num);
                     }
@@ -73,13 +68,11 @@ public class CurrentAccount extends Account {
                 inOrOut="In";
                 break;
             case 2:
-                if(balanceErrors(getBalance()-num)==true)
-                {
+                if(balanceErrors(getBalance()-num)==true){
                     setBalance(currentBalance); 
                     setMessage("Error! Invalid Funds, transaction rejected");
                 }
-                else
-                {
+                else{
                     setBalance(getBalance()-num);
                     setTotWithdraw(getTotWithdraw()+num);
                 } 

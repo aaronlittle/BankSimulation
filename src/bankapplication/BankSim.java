@@ -10,6 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -90,7 +91,7 @@ public class BankSim extends javax.swing.JFrame {
 
         jpControlPanel.setBackground(new java.awt.Color(204, 204, 255));
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         btnRestart.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 26)); // NOI18N
         btnRestart.setText("Restart");
@@ -209,25 +210,24 @@ public class BankSim extends javax.swing.JFrame {
                                 .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpControlPanelLayout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblSimulationStop, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jpControlPanelLayout.createSequentialGroup()
-                                    .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblMinLabel)
-                                        .addComponent(lblMinBalance))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblMaxLabel)
-                                        .addComponent(lblMaxBalance))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpControlPanelLayout.createSequentialGroup()
-                                .addComponent(btnGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(119, 119, 119)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jpControlPanelLayout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpControlPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSimulationStop, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpControlPanelLayout.createSequentialGroup()
+                                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblMinLabel)
+                                    .addComponent(lblMinBalance))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblMaxLabel)
+                                    .addComponent(lblMaxBalance)))
+                            .addGroup(jpControlPanelLayout.createSequentialGroup()
+                                .addGap(113, 113, 113)
+                                .addComponent(btnGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(199, 199, 199))))
             .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpControlPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -237,51 +237,49 @@ public class BankSim extends javax.swing.JFrame {
         jpControlPanelLayout.setVerticalGroup(
             jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpControlPanelLayout.createSequentialGroup()
+                .addContainerGap(98, Short.MAX_VALUE)
+                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addGroup(jpControlPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblSimulationStop)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMinLabel)
-                            .addComponent(lblMaxLabel))
-                        .addGap(9, 9, 9)
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMinBalance)
-                            .addComponent(lblMaxBalance))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                        .addComponent(btnGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))
+                        .addGap(7, 7, 7)
+                        .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addGroup(jpControlPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jpControlPanelLayout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(cmbAccountType, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtInitBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCreate)))
-                .addContainerGap())
+                        .addGap(7, 7, 7)
+                        .addComponent(cmbAccountType, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtInitBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCreate)
+                .addGap(0, 24, Short.MAX_VALUE))
+            .addGroup(jpControlPanelLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblSimulationStop)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMinLabel)
+                    .addComponent(lblMaxLabel))
+                .addGap(9, 9, 9)
+                .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMinBalance)
+                    .addComponent(lblMaxBalance))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
             .addGroup(jpControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpControlPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel23)
-                    .addGap(0, 221, Short.MAX_VALUE)))
+                    .addGap(0, 379, Short.MAX_VALUE)))
         );
 
         jpDrawingPanel.setBackground(new java.awt.Color(204, 255, 204));
@@ -410,7 +408,7 @@ public class BankSim extends javax.swing.JFrame {
                         .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel19)
                             .addComponent(lblTotDeposit))
-                        .addContainerGap(101, Short.MAX_VALUE))
+                        .addContainerGap(85, Short.MAX_VALUE))
                     .addGroup(jpDrawingPanelLayout.createSequentialGroup()
                         .addGroup(jpDrawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20)
@@ -432,7 +430,7 @@ public class BankSim extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jpControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -499,12 +497,13 @@ public class BankSim extends javax.swing.JFrame {
 
                 account.clearTransactions();
                 
-                txtErrorList.setText("");
+                
 
                 lblName.setText(account.getFName()+" "+account.getLName());
                 account.transaction(1,1);
                 tranCount=1;
                 printTran(0);
+                printError(account.getMessage());
                 enableStart();//disables all buttons, enables start button
                 break;
             }
@@ -526,15 +525,21 @@ public class BankSim extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGraphActionPerformed
 
     private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestartActionPerformed
-        // TODO add your handling code here:
-        /*
-        BankForm newSim = new BankForm();
-        newSim.setVisible(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to restart?", "Confirm",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            System.out.println("No button clicked");
+        } 
+        else if (response == JOptionPane.YES_OPTION) {
+            enableCreate();
+            clearTable();
+            txtErrorList.setText("");
+        } 
+        else if (response == JOptionPane.CLOSED_OPTION) {
+            System.out.println("JOptionPane closed");
+        }
 
-        this.dispose();
-        */
-        enableCreate();
-        clearTable();
     }//GEN-LAST:event_btnRestartActionPerformed
 
     private void btnStartSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartSimActionPerformed
@@ -576,7 +581,7 @@ public class BankSim extends javax.swing.JFrame {
         btnStopSim.setEnabled(false);
         btnRestart.setEnabled(true);
 
-        graphBalance = new int[account.getTransaction().size()];
+        graphBalance = new int[account.getSuccessful().size()];
         for (int i = 0; i < graphBalance.length; i++)
         {
             graphBalance[i] = account.getBalance(); //Add balance after each transaction to graphBalance array
@@ -618,7 +623,7 @@ public class BankSim extends javax.swing.JFrame {
         });
     }
     
-    public int randNum(){
+    private int randNum(){
         
         Random random = new Random();
         Random money = new Random();
@@ -626,16 +631,14 @@ public class BankSim extends javax.swing.JFrame {
         return num;                    
     }
     
-    public void printTran(int count)                        
-    {     
+    private void printTran(int count){     
         DefaultTableModel model = (DefaultTableModel)tblTransaction.getModel();
         Object[] row = {"Month "+account.getTransaction().get(count).getMonth(), account.getTransaction().get(count).getInOrOut(), account.getTransaction().get(count).getAmount(), account.getTransaction().get(count).getBalance()};
         model.addRow(row);
 
     }
     
-    public void printError(String message)
-    {
+    private void printError(String message){
         if (message !=null)
         {
             txtErrorList.append("Month "+month+ "   "+message+"\n");
@@ -646,8 +649,7 @@ public class BankSim extends javax.swing.JFrame {
         }                                                              
     }
     
-    public void disableAtStart()
-    {
+    private void disableAtStart(){
         btnGraph.setVisible(false); 
         lblSimulationStop.setVisible(false);
         lblMaxBalance.setVisible(false);
@@ -660,8 +662,7 @@ public class BankSim extends javax.swing.JFrame {
               
     }
     
-    public void enableStart()
-    {
+    private void enableStart(){
         btnCreate.setEnabled(false);              
         txtFirstName.setEnabled(false);
         txtLastName.setEnabled(false);
@@ -673,8 +674,7 @@ public class BankSim extends javax.swing.JFrame {
         txtInitBalance.setText(""); 
         
     }
-    public void enableCreate()
-    {
+    private void enableCreate(){
         btnCreate.setEnabled(true);
         txtFirstName.setEnabled(true);
         txtLastName.setEnabled(true);
@@ -691,8 +691,7 @@ public class BankSim extends javax.swing.JFrame {
         btnRestart.setEnabled(false);
     }
     
-    public void clearTable()
-    {
+    private void clearTable(){
         DefaultTableModel model = (DefaultTableModel)tblTransaction.getModel();
 
         while (model.getRowCount() > 0){

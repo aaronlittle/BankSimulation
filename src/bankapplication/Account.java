@@ -18,76 +18,88 @@ public abstract class Account {
     private int balance = 0;
     private int totWithdraw = 0;
     private int totDeposit = 0;
-
     private ArrayList<Transaction>transList = new ArrayList<Transaction>();
+    private ArrayList<Transaction>successful = new ArrayList<Transaction>();
             
-    public Account ()
-    {      
+    public Account (){      
     }
-    public Account (String firstName, String lastName, int bal)
-    {       
+    public Account (String firstName, String lastName, int bal){       
         this.balance = bal;
         this.fName = firstName;
         this.lName = lastName;
     }
     //getters and setters
     public int getTotWithdraw(){
-        return totWithdraw;}
+        return totWithdraw;
+    }
     public void setTotWithdraw(int value){
-        this.totWithdraw=value;}
+        this.totWithdraw=value;
+    }
     public int getTotDeposit(){
-        return totDeposit;}
+        return totDeposit;
+    }
     public void setTotDeposit(int value){
-        this.totDeposit=value;}
+        this.totDeposit=value;
+    }
     public String getMessage(){
-        return this.msg;}
+        return this.msg;
+    }
     public void setMessage(String value){
-        this.msg = value;}
+        this.msg = value;
+    }
+    public ArrayList<Transaction> getSuccessful(){
+        return successful;
+    }
+    public void setSuccessful(int month, String inOrOut, int num, int bal){
+        successful.add (new Transaction(month, inOrOut, num, bal));
+    }
     public ArrayList<Transaction> getTransaction(){
-        return transList;}
+        return transList;
+    }
     public void setTransaction(int month, String inOrOut, int num, int bal){
-        transList.add (new Transaction(month, inOrOut, num, bal));}
+        transList.add (new Transaction(month, inOrOut, num, bal));
+    }
     public void setFName(String value){
-        this.fName = value;}
+        this.fName = value;
+    }
     public String getFName(){
-        return this.fName;}
+        return this.fName;
+    }
     public void setLName(String value){
-        this.lName = value;}
+        this.lName = value;
+    }
     public String getLName(){
-        return this.lName;}
+        return this.lName;
+    }
     public void setBalance(int value){
-        this.balance = value;}
+        this.balance = value;
+    }
     public int getBalance(){
-        return this.balance;} 
+        return this.balance;
+    } 
     //abstract methods
     public abstract boolean balanceErrors(int amount);
     public abstract void transaction(int rand,int month);
     
     //other methods, not to be overidden 
     //these methods find the max and min values of account when simulation is stopped
-    public String findMax()
-    {
+    public String findMax(){
         int max = transList.get(0).getBalance();
         int month = 1;
         String foundMax = "";
-        for(int i = 0; i<transList.size();i++)
-        {
-            if(transList.get(i).getBalance()> max)
-            {
+        for(int i = 0; i<transList.size();i++){
+            if(transList.get(i).getBalance()> max){
                 max=transList.get(i).getBalance();
                 month=transList.get(i).getMonth();
             }
         }
         return ("£"+Integer.toString(max)+"  Month "+Integer.toString(month));
     }
-    public String findMin()
-    {
+    public String findMin(){
         int min = transList.get(0).getBalance();
         int month=1;
-        for(int i = 0; i<transList.size();i++)
-        {
-            if(min>transList.get(i).getBalance())
-            {
+        for(int i = 0; i<transList.size();i++){
+            if(min>transList.get(i).getBalance()){
                 min=transList.get(i).getBalance();
                 month=transList.get(i).getMonth();
             }
@@ -96,8 +108,7 @@ public abstract class Account {
         return ("£"+Integer.toString(min)+"  Month "+Integer.toString(month));
     }
     
-    public void clearTransactions()
-    {
+    public void clearTransactions(){
         transList.clear();
     }
  }
