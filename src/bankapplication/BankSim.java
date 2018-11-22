@@ -195,7 +195,7 @@ public class BankSim extends javax.swing.JFrame {
                 btnGraphActionPerformed(evt);
             }
         });
-        jpControlPanel.add(btnGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(1024, 314, 187, 75));
+        jpControlPanel.add(btnGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 310, 187, 75));
 
         jpDrawingPanel.setBackground(new java.awt.Color(204, 255, 204));
         jpDrawingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -290,7 +290,7 @@ public class BankSim extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jpControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
+                .addComponent(jpDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -379,6 +379,7 @@ public class BankSim extends javax.swing.JFrame {
             clearTable();
             account.clearTransactions();
             txtErrorList.setText("");
+            lblName.setText("");
         } 
         else if (response == JOptionPane.CLOSED_OPTION) {
             System.out.println("JOptionPane closed");

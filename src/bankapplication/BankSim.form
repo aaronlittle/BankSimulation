@@ -56,7 +56,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jpControlPanel" min="-2" pref="411" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jpDrawingPanel" pref="404" max="32767" attributes="0"/>
+                  <Component id="jpDrawingPanel" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -352,7 +352,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="1024" y="314" width="187" height="75"/>
+                  <AbsoluteConstraints x="750" y="310" width="187" height="75"/>
                 </Constraint>
               </Constraints>
             </Component>
