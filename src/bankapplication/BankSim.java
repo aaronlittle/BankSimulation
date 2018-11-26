@@ -25,6 +25,8 @@ public class BankSim extends javax.swing.JFrame {
     private int month = 2;
     private int tranCount;//postion in the array of transactions
     private int [] graphBalance; //= new int[account.getTransaction().size()]; //Create array to hold balance after each transaction using length of arrayList
+    private int [] graphMonth;
+    private int count = 0;
 
     /**
      * Creates new form BankSim
@@ -361,8 +363,13 @@ public class BankSim extends javax.swing.JFrame {
 
     private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
 
-        Graph createGraph = new Graph(graphBalance, month);
+        Graph createGraph = new Graph(graphBalance, graphMonth);
         createGraph.setVisible(true);
+       
+       /*for (int i = 0; i < graphBalance.length; i++)
+       {
+           System.out.println(graphBalance[i]);
+       } */
 
     }//GEN-LAST:event_btnGraphActionPerformed
 
@@ -388,6 +395,8 @@ public class BankSim extends javax.swing.JFrame {
     private void btnStartSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartSimActionPerformed
         btnStopSim.setEnabled(true);
         btnStartSim.setEnabled(false);
+        graphMonth = new int[10];
+        graphBalance = new int[10];
         task = new TimerTask() {
             public void run() {
 
@@ -398,6 +407,9 @@ public class BankSim extends javax.swing.JFrame {
                 lblTotBalance.setText("£"+Integer.toString(account.getBalance()));
                 lblTotDeposit.setText("£"+Integer.toString(account.getTotDeposit()));
                 lblTotWithdrawn.setText("£"+Integer.toString(account.getTotWithdraw()));
+                graphBalance[count] = account.getBalance();
+                graphMonth[count] = month;
+                count++;
                 tranCount ++;
                 month++;
 
@@ -422,12 +434,13 @@ public class BankSim extends javax.swing.JFrame {
         lblMinLabel.setVisible(true);
         btnStopSim.setEnabled(false);
         btnRestart.setEnabled(true);
-
+        
+       /* graphMonth = new int[account.getSuccessful().size()];
         graphBalance = new int[account.getSuccessful().size()];
         for (int i = 0; i < graphBalance.length; i++)
         {
             graphBalance[i] = account.getBalance(); //Add balance after each transaction to graphBalance array
-        }
+        }*/
     }//GEN-LAST:event_btnStopSimActionPerformed
 
     /**
