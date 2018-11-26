@@ -5,11 +5,18 @@
  */
 package bankapplication;
 
+import java.awt.Graphics;
+import java.awt.geom.GeneralPath;
+
+
 /**
  *
  * @author Wral
  */
 public class Graph extends javax.swing.JFrame {
+    
+    int [] xCoords;
+    int [] yCoords;
 
     /**
      * Creates new form Graph
@@ -80,11 +87,32 @@ public class Graph extends javax.swing.JFrame {
     
     
     
-    public Graph (int[] balance, int month) {
-        
+    public Graph (int[] balance, int[] month) {
+        this.setSize(500, 500);
+        for (int i = 0; i<balance.length; i++)
+        {
+            xCoords[i] = balance[i];
+            yCoords[i] = month[i];
+        }
+       GeneralPath draw = new GeneralPath();
+       draw.moveTo(xCoords[0], yCoords[0]);
+       for (int i = 0; i <xCoords.length; i++) 
+       {
+           draw.lineTo(xCoords[i], yCoords[i]);
+       }
     }
 
     
+    public void paintComponent (Graphics g)
+    {
+                
+        GeneralPath draw = new GeneralPath();
+        draw.moveTo(xCoords[0], yCoords[0]);
+        for (int i = 1; i <xCoords.length; i++){
+            draw.lineTo(xCoords[i], yCoords[i]);
+        }
+        
+    }
         
  
             
