@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Wral
  */
 public class BankSim extends javax.swing.JFrame {
+    private AccountCollection accountList = new AccountCollection();
     private Account account;
     private Timer timer;
     private TimerTask task;
@@ -43,7 +44,7 @@ public class BankSim extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
+        jpMain = new javax.swing.JPanel();
         jpControlPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnRestart = new javax.swing.JButton();
@@ -85,7 +86,7 @@ public class BankSim extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 51, 255));
         setResizable(false);
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 255));
+        jpMain.setBackground(new java.awt.Color(0, 0, 255));
 
         jpControlPanel.setBackground(new java.awt.Color(204, 204, 255));
         jpControlPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -278,16 +279,16 @@ public class BankSim extends javax.swing.JFrame {
         jLabel21.setText("Messages");
         jpDrawingPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(1121, 16, -1, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jpMainLayout = new javax.swing.GroupLayout(jpMain);
+        jpMain.setLayout(jpMainLayout);
+        jpMainLayout.setHorizontalGroup(
+            jpMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jpDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jpMainLayout.setVerticalGroup(
+            jpMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpMainLayout.createSequentialGroup()
                 .addComponent(jpControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -297,11 +298,11 @@ public class BankSim extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -348,6 +349,7 @@ public class BankSim extends javax.swing.JFrame {
                 month=2;
                 printMessage(account.getMessage());//print message if there is one
                 enableStart();//disables all buttons, enables start button
+                accountList.addToAccounts(account);
                 break;
             }
             catch(Exception ex){
@@ -565,11 +567,11 @@ public class BankSim extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel jpControlPanel;
     private javax.swing.JPanel jpDrawingPanel;
+    private javax.swing.JPanel jpMain;
     private javax.swing.JLabel lblMaxBalance;
     private javax.swing.JLabel lblMaxLabel;
     private javax.swing.JLabel lblMinBalance;
