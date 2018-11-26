@@ -23,7 +23,7 @@ public class BankSim extends javax.swing.JFrame {
     private Account account;
     private Timer timer;
     private TimerTask task;
-    private int month = 2;
+    private int month = 0;
     private int tranCount;//postion in the array of transactions
     private int count = 0;
 
@@ -81,6 +81,14 @@ public class BankSim extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         txtErrorList = new javax.swing.JTextArea();
         jLabel21 = new javax.swing.JLabel();
+        jpViewAccounts = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listAccounts = new javax.swing.JList<>();
+        btnBack = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblAccTrans = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtMessages = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 255));
@@ -294,15 +302,81 @@ public class BankSim extends javax.swing.JFrame {
                 .addComponent(jpDrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jpViewAccounts.setPreferredSize(new java.awt.Dimension(1410, 815));
+        jpViewAccounts.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        listAccounts.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listAccounts);
+
+        jpViewAccounts.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 500, 205));
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        jpViewAccounts.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
+
+        jScrollPane4.setFont(new java.awt.Font("Nirmala UI Semilight", 0, 16)); // NOI18N
+
+        tblAccTrans.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date", "In/Out", "Amount", "Balance"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblAccTrans.setRequestFocusEnabled(false);
+        jScrollPane4.setViewportView(tblAccTrans);
+
+        jpViewAccounts.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 560, 400));
+
+        txtMessages.setColumns(20);
+        txtMessages.setRows(5);
+        jScrollPane5.setViewportView(txtMessages);
+
+        jpViewAccounts.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 540, 400));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jpViewAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jpViewAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -326,7 +400,7 @@ public class BankSim extends javax.swing.JFrame {
                 error=false;
                 int init = Integer.parseInt(bal);
                 if(accountType ==0){
-                    account = new SavingsAccount(fName, lName, init);
+                    account = new SavingsAccount(fName, lName, init,"Savings Account");
                     if(init <100){
                         JOptionPane.showMessageDialog(null, "Start balance cant be under £100");
                         error=true;
@@ -335,19 +409,20 @@ public class BankSim extends javax.swing.JFrame {
                 }
 
                 else if(accountType==1){
-                    account = new CurrentAccount(fName, lName, init);
+                    account = new CurrentAccount(fName, lName, init,"Current Account");
                     if(init <1){
                         JOptionPane.showMessageDialog(null, "Start balance cant be under £1");
                         error=true;
                         break;
                     }
-                }                                             
+                }                   
+                month=1;
                 lblName.setText(account.getFName()+" "+account.getLName());
-                account.transaction(1,1);  //first transaction at month 1 and as a deposit               
+                account.transaction(month,1);  //first transaction at month 1 and as a deposit               
                 printTran(0);//print first element in transaction array onto table 
                 tranCount=1;
-                month=2;
                 printMessage(account.getMessage());//print message if there is one
+                month++;
                 enableStart();//disables all buttons, enables start button
                 accountList.addToAccounts(account);
                 break;
@@ -397,6 +472,7 @@ public class BankSim extends javax.swing.JFrame {
             account.clearTransactions();
             txtErrorList.setText("");
             lblName.setText("");
+            lblMonth.setVisible(false);
         } 
         else if (response == JOptionPane.CLOSED_OPTION) {
             System.out.println("JOptionPane closed");
@@ -405,6 +481,7 @@ public class BankSim extends javax.swing.JFrame {
 
     private void btnStartSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartSimActionPerformed
         btnStopSim.setEnabled(true);
+        lblMonth.setVisible(true);
         btnStartSim.setEnabled(false);
        // graphMonth = new int[10];
         //graphBalance = new int[10];
@@ -453,6 +530,11 @@ public class BankSim extends javax.swing.JFrame {
             graphBalance[i] = account.getBalance(); //Add balance after each transaction to graphBalance array
         }*/
     }//GEN-LAST:event_btnStopSimActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        jpViewAccounts.setVisible(false);
+        jpMain.setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -505,6 +587,7 @@ public class BankSim extends javax.swing.JFrame {
     }
     
     private void printMessage(String message){
+        //account.setMsgList(message);
         if (message !=null){
             txtErrorList.append("Month "+month+ "   "+message+"\n");
         }
@@ -524,6 +607,8 @@ public class BankSim extends javax.swing.JFrame {
         btnStartSim.setEnabled(false);
         btnRestart.setEnabled(false);
         lblName.setText("");
+        jpViewAccounts.setVisible(false);
+        lblMonth.setVisible(false);
               
     }
     
@@ -571,6 +656,7 @@ public class BankSim extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnGraph;
     private javax.swing.JButton btnRestart;
@@ -588,11 +674,15 @@ public class BankSim extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel jpControlPanel;
     private javax.swing.JPanel jpDrawingPanel;
     private javax.swing.JPanel jpMain;
+    private javax.swing.JPanel jpViewAccounts;
     private javax.swing.JLabel lblMaxBalance;
     private javax.swing.JLabel lblMaxLabel;
     private javax.swing.JLabel lblMinBalance;
@@ -603,10 +693,13 @@ public class BankSim extends javax.swing.JFrame {
     private javax.swing.JLabel lblTotBalance;
     private javax.swing.JLabel lblTotDeposit;
     private javax.swing.JLabel lblTotWithdrawn;
+    private javax.swing.JList<String> listAccounts;
+    private javax.swing.JTable tblAccTrans;
     private javax.swing.JTable tblTransaction;
     private javax.swing.JTextArea txtErrorList;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtInitBalance;
     private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextArea txtMessages;
     // End of variables declaration//GEN-END:variables
 }

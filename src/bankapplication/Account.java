@@ -15,20 +15,37 @@ public abstract class Account {
     private String fName = "";
     private String lName = "";
     private String msg="";
+    private String type = "";
     private int balance = 0;
     private int totWithdraw = 0;
     private int totDeposit = 0;
     private ArrayList<Transaction>transList = new ArrayList<Transaction>();
     private ArrayList<Transaction>successful = new ArrayList<Transaction>();
+    private ArrayList<String> msgList = new ArrayList <String>();
             
     public Account (){      
     }
-    public Account (String firstName, String lastName, int bal){       
+    public Account (String firstName, String lastName, int bal, String typ){       
         this.balance = bal;
         this.fName = firstName;
         this.lName = lastName;
+        this.type = typ;
     }
     //getters and setters
+    /*
+    public ArrayList<String> getMsgList(){
+        return msgList;
+    }
+    public void setMsgList(String value){
+        msgList.add(value);
+    }
+*/
+    public String getType(){
+        return type;
+    }
+    public void setType(String value){
+        type=value;
+    }
     public int getTotWithdraw(){
         return totWithdraw;
     }

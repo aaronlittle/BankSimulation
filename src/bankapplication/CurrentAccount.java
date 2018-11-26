@@ -16,9 +16,9 @@ public class CurrentAccount extends Account {
     public CurrentAccount()
     {
     }   
-    public CurrentAccount(String fn, String ln, int bal)
+    public CurrentAccount(String fn, String ln, int bal,String type)
     {
-        super(fn,ln,bal);
+        super(fn,ln,bal,type);
     }    
     public boolean balanceErrors(int amount)
     {
@@ -59,11 +59,13 @@ public class CurrentAccount extends Account {
                     else if(month==1){
                         num=currentBalance;
                         setBalance(currentBalance);
+                        
                     }
                     else{
                         setBalance(getBalance()+num);
                         setTotDeposit(getTotDeposit()+num);
                     }
+                    setSuccessful(month, inOrOut, num, getBalance());
                 }                
                 inOrOut="In";
                 break;
@@ -75,6 +77,7 @@ public class CurrentAccount extends Account {
                 else{
                     setBalance(getBalance()-num);
                     setTotWithdraw(getTotWithdraw()+num);
+                    setSuccessful(month, inOrOut, num, getBalance());
                 } 
                 inOrOut="Out";
                 break;                                                                       
