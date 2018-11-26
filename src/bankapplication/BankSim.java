@@ -25,8 +25,6 @@ public class BankSim extends javax.swing.JFrame {
     private TimerTask task;
     private int month = 2;
     private int tranCount;//postion in the array of transactions
-    private int [] graphBalance; //= new int[account.getTransaction().size()]; //Create array to hold balance after each transaction using length of arrayList
-    private int [] graphMonth;
     private int count = 0;
 
     /**
@@ -364,7 +362,17 @@ public class BankSim extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
-
+        int size = account.getSuccessful().size();
+        int[] graphBalance = new int[size];
+        int[] graphMonth = new int[size];
+        for(int i=0; i<account.getSuccessful().size();i++){
+            int x = account.getSuccessful().get(i).getBalance();
+            int y = account.getSuccessful().get(i).getMonth();
+            graphBalance[i] = x;
+            graphMonth[i]=y;
+            //graphMonth.add(y);
+            
+        }
         Graph createGraph = new Graph(graphBalance, graphMonth);
         createGraph.setVisible(true);
        
@@ -398,8 +406,8 @@ public class BankSim extends javax.swing.JFrame {
     private void btnStartSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartSimActionPerformed
         btnStopSim.setEnabled(true);
         btnStartSim.setEnabled(false);
-        graphMonth = new int[10];
-        graphBalance = new int[10];
+       // graphMonth = new int[10];
+        //graphBalance = new int[10];
         task = new TimerTask() {
             public void run() {
 
@@ -410,8 +418,8 @@ public class BankSim extends javax.swing.JFrame {
                 lblTotBalance.setText("£"+Integer.toString(account.getBalance()));
                 lblTotDeposit.setText("£"+Integer.toString(account.getTotDeposit()));
                 lblTotWithdrawn.setText("£"+Integer.toString(account.getTotWithdraw()));
-                graphBalance[count] = account.getBalance();
-                graphMonth[count] = month;
+                //graphBalance[count] = account.getBalance();
+                //graphMonth[count] = month;
                 count++;
                 tranCount ++;
                 month++;

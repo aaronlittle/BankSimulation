@@ -87,19 +87,23 @@ public class Graph extends javax.swing.JFrame {
     
     
     
-    public Graph (int[] balance, int[] month) {
+    public Graph (int[] balance, int[] month) {        
         this.setSize(500, 500);
+        xCoords = new int[balance.length];
+        yCoords = new int[month.length];
         for (int i = 0; i<balance.length; i++)
         {
             xCoords[i] = balance[i];
             yCoords[i] = month[i];
         }
+       
        GeneralPath draw = new GeneralPath();
        draw.moveTo(xCoords[0], yCoords[0]);
        for (int i = 0; i <xCoords.length; i++) 
        {
            draw.lineTo(xCoords[i], yCoords[i]);
        }
+
     }
 
     
