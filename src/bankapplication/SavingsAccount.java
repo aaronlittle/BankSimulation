@@ -47,11 +47,7 @@ public class SavingsAccount extends Account {
         switch(rand){
             case 1:   
                 inOrOut="In";
-                if(balanceErrors(getBalance()+num)==true){
-                    setBalance(currentBalance); 
-                    setMessage("Error! Invalid Funds, transaction rejected");
-                }
-                else if(balanceErrors(getBalance()+num)==false){
+                if(balanceErrors(getBalance()+num)==false){
                     if (month==1){
                         num = currentBalance;
                         setBalance(currentBalance);

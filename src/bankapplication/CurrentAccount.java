@@ -23,7 +23,7 @@ public class CurrentAccount extends Account {
     public boolean balanceErrors(int amount)
     {
         boolean error=false;
-        if(super.getBalance()<-1000)
+        if(amount<-1000)
         {
            // error = "Error! Invalid Funds, transaction rejected";
             error = true;
@@ -46,27 +46,21 @@ public class CurrentAccount extends Account {
         switch(rand)
         {
             case 1:      
-                if(balanceErrors(getBalance()+num)==true){
-                    setBalance(currentBalance); 
-                    setMessage("Error! Invalid Funds, transaction rejected");
+                if(month==1&&getBalance()>=500){
+                    num=currentBalance;
+                    setBalance(getBalance()+10);
+                    setMessage("£500 deposited in first month, rewarded £10");                       
+                }
+                else if(month==1){
+                    num=currentBalance;
+                    setBalance(currentBalance);
+
                 }
                 else{
-                    if(month==1&&getBalance()>=500){
-                        num=currentBalance;
-                        setBalance(getBalance()+10);
-                        setMessage("£500 deposited in first month, rewarded £10");                       
-                    }
-                    else if(month==1){
-                        num=currentBalance;
-                        setBalance(currentBalance);
-                        
-                    }
-                    else{
-                        setBalance(getBalance()+num);
-                        setTotDeposit(getTotDeposit()+num);
-                    }
-                    setSuccessful(month, inOrOut, num, getBalance());
-                }                
+                    setBalance(getBalance()+num);
+                    setTotDeposit(getTotDeposit()+num);
+                }
+                setSuccessful(month, inOrOut, num, getBalance());               
                 inOrOut="In";
                 break;
             case 2:

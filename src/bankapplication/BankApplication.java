@@ -16,9 +16,12 @@ public class BankApplication {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        /*
         BankSim myApp = new BankSim();
         myApp.setVisible(true);
-        
+        */
+        SplashScreen splash = new SplashScreen();
+        splash.setVisible(true);
         
         
         
