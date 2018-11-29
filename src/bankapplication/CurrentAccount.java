@@ -1,50 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bankapplication;
 
 import java.util.Random;
 
-/**
- *
- * @author Wral
- */
 public class CurrentAccount extends Account {
     private String msg = "";
-    public CurrentAccount()
-    {
+    public CurrentAccount(){
+        //default constructor
     }   
-    public CurrentAccount(String fn, String ln, int bal,String type)
-    {
+    public CurrentAccount(String fn, String ln, int bal,String type){
         super(fn,ln,bal,type);
     }    
-    public boolean balanceErrors(int amount)
-    {
+
+    public boolean balanceErrors(int amount){
+        //check that balance doesnt fall below -1000
         boolean error=false;
-        if(amount<-1000)
-        {
-           // error = "Error! Invalid Funds, transaction rejected";
+        if(amount<-1000){
             error = true;
         }
-        else
-        {
+        else{
             error=false;
         }
         return error;
     }
      
-    public void transaction(int rand,int month)
-    {
+    public void transaction(int rand,int month){
+        //implementation of abstract method in Account class
         setMessage(null);
         Random random = new Random();
         int num = random.nextInt(1000)+1;
         String inOrOut="";
         int currentBalance=getBalance();
         int saveTranCount=0;               
-        switch(rand)
-        {
+        switch(rand){//rand = either 1 or 2 (deposit or withdrawal)
             case 1:      
                 if(month==1&&getBalance()>=500){
                     num=currentBalance;
@@ -57,10 +44,15 @@ public class CurrentAccount extends Account {
 
                 }
                 else{
-                    setBalance(getBalance()+num);
-                    setTotDeposit(getTotDeposit()+num);
+                    if(balanceLimit(getBalance()+num)==true){
+                        setMessage("Maximum account balance reached");
+                    }
+                    else{
+                        setBalance(getBalance()+num);
+                        setTotDeposit(getTotDeposit()+num);
+                    }
                 }
-                setSuccessful(month, inOrOut, num, getBalance());               
+                setSuccessful(month, inOrOut, num, getBalance()); //add to successful transactions array              
                 inOrOut="In";
                 break;
             case 2:
@@ -71,11 +63,11 @@ public class CurrentAccount extends Account {
                 else{
                     setBalance(getBalance()-num);
                     setTotWithdraw(getTotWithdraw()+num);
-                    setSuccessful(month, inOrOut, num, getBalance());
+                    setSuccessful(month, inOrOut, num, getBalance());//add to successful transactions array      
                 } 
                 inOrOut="Out";
                 break;                                                                       
         }
-        setTransaction(month, inOrOut, num, getBalance());
+        setTransaction(month, inOrOut, num, getBalance());//add transaction to transaction array whether successfor or not
     }        
 }

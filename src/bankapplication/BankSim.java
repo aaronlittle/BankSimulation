@@ -19,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
  * @author Wral
  */
 public class BankSim extends javax.swing.JFrame {
-    private AccountCollection accountList = new AccountCollection();
     private Account account;
     private Timer timer;
     private TimerTask task;
@@ -33,6 +32,7 @@ public class BankSim extends javax.swing.JFrame {
     public BankSim() {
         initComponents();
         disableAtStart();//disables all buttons not needed to create account
+        
     }
 
     /**
@@ -321,6 +321,7 @@ public class BankSim extends javax.swing.JFrame {
         lblTotBalance.setText("£"+bal);
         int accountType = cmbAccountType.getSelectedIndex();
         boolean error = false;
+        //keep asking user for account details if they are entering invalid data
         while(error=true){
             if (!Pattern.matches("[a-zA-Z]+",fName)||!Pattern.matches("[a-zA-Z]+",lName)){
                 error=true;
@@ -332,8 +333,8 @@ public class BankSim extends javax.swing.JFrame {
                 int init = Integer.parseInt(bal);
                 if(accountType ==0){
                     account = new SavingsAccount(fName, lName, init,"Savings Account");
-                    if(init <100){
-                        JOptionPane.showMessageDialog(null, "Start balance cant be under £100");
+                    if(init <100 || init>99999){
+                        JOptionPane.showMessageDialog(null, "Balance must be between £100 and £99999");
                         error=true;
                         break;
                     }
@@ -341,12 +342,13 @@ public class BankSim extends javax.swing.JFrame {
 
                 else if(accountType==1){
                     account = new CurrentAccount(fName, lName, init,"Current Account");
-                    if(init <1){
-                        JOptionPane.showMessageDialog(null, "Start balance cant be under £1");
+                    if(init <1|| init>99999){
+                        JOptionPane.showMessageDialog(null, "Start balance cant be under £1 and must be under £99999");
                         error=true;
                         break;
                     }
-                }                   
+                }      
+                //create the account and the first transaction 
                 month=1;
                 lblName.setText(account.getFName()+" "+account.getLName());
                 account.transaction(month,1);  //first transaction at month 1 and as a deposit               
@@ -355,7 +357,6 @@ public class BankSim extends javax.swing.JFrame {
                 printMessage(account.getMessage());//print message if there is one
                 month++;
                 enableStart();//disables all buttons, enables start button
-                accountList.addToAccounts(account);
                 break;
             }
             catch(Exception ex){
@@ -369,6 +370,7 @@ public class BankSim extends javax.swing.JFrame {
 
     private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
         int size = account.getSuccessful().size();
+        //two arrays to store the month of a successful transaction and the balance
         int[] graphBalance = new int[size];
         int[] graphMonth = new int[size];
         for(int i=0; i<account.getSuccessful().size();i++){
@@ -376,16 +378,10 @@ public class BankSim extends javax.swing.JFrame {
             int y = account.getSuccessful().get(i).getMonth();
             graphBalance[i] = x;
             graphMonth[i]=y;
-            //graphMonth.add(y);
             
         }
         Graph createGraph = new Graph(graphBalance, graphMonth);
         createGraph.setVisible(true);
-       
-       /*for (int i = 0; i < graphBalance.length; i++)
-       {
-           System.out.println(graphBalance[i]);
-       } */
 
     }//GEN-LAST:event_btnGraphActionPerformed
 
@@ -414,8 +410,7 @@ public class BankSim extends javax.swing.JFrame {
         btnStopSim.setEnabled(true);
         lblMonth.setVisible(true);
         btnStartSim.setEnabled(false);
-       // graphMonth = new int[10];
-        //graphBalance = new int[10];
+        //timer to run every five seconds, simulates one transaction
         task = new TimerTask() {
             public void run() {
 
@@ -426,8 +421,6 @@ public class BankSim extends javax.swing.JFrame {
                 lblTotBalance.setText("£"+Integer.toString(account.getBalance()));
                 lblTotDeposit.setText("£"+Integer.toString(account.getTotDeposit()));
                 lblTotWithdrawn.setText("£"+Integer.toString(account.getTotWithdraw()));
-                //graphBalance[count] = account.getBalance();
-                //graphMonth[count] = month;
                 count++;
                 tranCount ++;
                 month++;
@@ -439,7 +432,6 @@ public class BankSim extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartSimActionPerformed
 
     private void btnStopSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopSimActionPerformed
-        // TODO add your handling code here:
         timer.cancel();
         timer.purge();
         lblMaxBalance.setText(account.findMax());
@@ -452,44 +444,10 @@ public class BankSim extends javax.swing.JFrame {
         lblMaxLabel.setVisible(true);
         lblMinLabel.setVisible(true);
         btnStopSim.setEnabled(false);
-        btnRestart.setEnabled(true);
-        
-       /* graphMonth = new int[account.getSuccessful().size()];
-        graphBalance = new int[account.getSuccessful().size()];
-        for (int i = 0; i < graphBalance.length; i++)
-        {
-            graphBalance[i] = account.getBalance(); //Add balance after each transaction to graphBalance array
-        }*/
+        btnRestart.setEnabled(true);      
     }//GEN-LAST:event_btnStopSimActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BankSim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BankSim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BankSim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BankSim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BankSim().setVisible(true);
@@ -498,22 +456,22 @@ public class BankSim extends javax.swing.JFrame {
     }
     
     private int randNum(){
-        
+        //generates random number to represent deposit (1) or withdrawal(2)
         Random random = new Random();
         Random money = new Random();
         int num = (Math.random() <= 0.5) ? 1 : 2;
         return num;                    
     }
     
-    private void printTran(int count){     
+    private void printTran(int count){ 
+        //print the transaction onto the table
         DefaultTableModel model = (DefaultTableModel)tblTransaction.getModel();
         Object[] row = {"Month "+account.getTransaction().get(count).getMonth(), account.getTransaction().get(count).getInOrOut(), account.getTransaction().get(count).getAmount(), account.getTransaction().get(count).getBalance()};
         model.addRow(row);
-
     }
     
     private void printMessage(String message){
-        //account.setMsgList(message);
+        //print any messages on the message area
         if (message !=null){
             txtErrorList.append("Month "+month+ "   "+message+"\n");
         }
@@ -533,7 +491,6 @@ public class BankSim extends javax.swing.JFrame {
         btnStartSim.setEnabled(false);
         btnRestart.setEnabled(false);
         lblName.setText("");
-        //jpViewAccounts.setVisible(false);
         lblMonth.setVisible(false);
               
     }

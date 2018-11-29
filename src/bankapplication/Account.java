@@ -112,6 +112,16 @@ public abstract class Account {
         }
         return ("£"+Integer.toString(max)+"  Month "+Integer.toString(month));
     }
+    public boolean balanceLimit(int amount){
+        boolean error=false;
+        if(amount>99999){
+            error = true;
+        }
+        else{
+            error=false;
+        }
+        return error;
+    }
     public String findMin(){
         int min = transList.get(0).getBalance();
         int month=1;
@@ -124,7 +134,7 @@ public abstract class Account {
         
         return ("£"+Integer.toString(min)+"  Month "+Integer.toString(month));
     }
-    
+    //clears the list of transactions when restart simulation
     public void clearTransactions(){
         transList.clear();
     }

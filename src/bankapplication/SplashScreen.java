@@ -22,6 +22,7 @@ public class SplashScreen extends javax.swing.JFrame {
      * Creates new form SplashScreen
      */
     public SplashScreen() {
+        //display animation
         initComponents();
         lblImage.setText("");
         icon = new ImageIcon(getClass().getResource("/images/img1.gif"));
@@ -41,7 +42,7 @@ public class SplashScreen extends javax.swing.JFrame {
             }
         };
         timer = new Timer();
-        timer.schedule(task, 1000, 1000);
+        timer.schedule(task, 200, 200);
         
         
     }

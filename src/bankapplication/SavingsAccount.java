@@ -1,33 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bankapplication;
 
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-/**
- *
- * @author Wral
- */
+
 public class SavingsAccount extends Account {
     private int annualWithdraw = 0;
     private int interest=0;
-    public SavingsAccount()
-    {
+    public SavingsAccount(){
+        //default constructor
     }  
     public SavingsAccount(String fn, String ln, int bal, String type){
         super(fn,ln,bal,type);            
     }
     
     public boolean balanceErrors(int amount){
+        //check that balance doesnt fall below 100
         boolean error=false;
-       
         if (amount<100){
             error = true;
-            //error = "Error! Invalid Funds, transaction rejected";
         }
         else{
             error=false;   
@@ -35,28 +26,33 @@ public class SavingsAccount extends Account {
         return error;
     }
     
-    public void transaction(int rand,int month){       
+    public void transaction(int rand,int month){  
+        //implementation of abstract method in Account class
         setMessage(null);
         Random random = new Random();
         int num = random.nextInt(1000)+1;
         String inOrOut="";
         int currentBalance = getBalance();
-        
-       // String err1 = balanceErrors(getBalance()+num);
-       // String err2 = balanceErrors(getBalance()-num);
-        switch(rand){
+
+        switch(rand){//rand = either 1 or 2 (deposit or withdrawal)
             case 1:   
                 inOrOut="In";
                 if(balanceErrors(getBalance()+num)==false){
                     if (month==1){
                         num = currentBalance;
                         setBalance(currentBalance);
+                        setSuccessful(month, inOrOut, num, getBalance());
                     }
                     else{
-                        setBalance(getBalance()+num);    
-                        setTotDeposit(getTotDeposit()+num);
-                    }
-                    setSuccessful(month, inOrOut, num, getBalance());
+                        if(balanceLimit(getBalance()+num)==true){
+                            setMessage("Maximum account balance reached");
+                        }
+                        else{
+                            setBalance(getBalance()+num);    
+                            setTotDeposit(getTotDeposit()+num);
+                            setSuccessful(month, inOrOut, num, getBalance()); //add to successful transactions array   
+                        }
+                    }                   
                 }                                
                 break;
             case 2:
@@ -76,7 +72,7 @@ public class SavingsAccount extends Account {
                         setBalance(getBalance()-num);
                         setTotWithdraw(getTotWithdraw()+num);
                     }
-                    setSuccessful(month, inOrOut, num, getBalance());
+                    setSuccessful(month, inOrOut, num, getBalance()); //add to successful transactions array   
                 }          
                 break;                                                                       
         }
@@ -88,10 +84,10 @@ public class SavingsAccount extends Account {
             annualWithdraw=0;
         }
 
-        setTransaction(month, inOrOut, num, getBalance());
+        setTransaction(month, inOrOut, num, getBalance());//add transaction to transaction array whether successfor or not
     }
     
-    private boolean checkWithdrawal(int month){   
+    private boolean checkWithdrawal(int month){   //stop user from withdrawing more than twice in a year
         boolean error=false;
         if(annualWithdraw>2){
             error=true;
@@ -102,7 +98,7 @@ public class SavingsAccount extends Account {
         return error;
     }
     
-    private void addInterest(int month){
+    private void addInterest(int month){//add interest after every year
         if(month %12==1){
             setBalance(getBalance()+interest);
             interest =0;
