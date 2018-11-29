@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bankapplication;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Wral
- */
 public abstract class Account {
     private String fName = "";
     private String lName = "";
@@ -31,15 +22,7 @@ public abstract class Account {
         this.lName = lastName;
         this.type = typ;
     }
-    //getters and setters
-    /*
-    public ArrayList<String> getMsgList(){
-        return msgList;
-    }
-    public void setMsgList(String value){
-        msgList.add(value);
-    }
-*/
+
     public String getType(){
         return type;
     }

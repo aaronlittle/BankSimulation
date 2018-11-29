@@ -15,7 +15,7 @@ public class Graph extends javax.swing.JFrame {
     int [] yCoords;
     int [] graphBalance;
     int [] graphMonth;
-    private int barWidth = 20;
+    private int barWidth = 10;
     private int barSpaces = 100;
     private int barHeight = 50;
 
@@ -108,7 +108,7 @@ public class Graph extends javax.swing.JFrame {
             public void run() {
                 Graph a = new Graph();
                 a.setVisible(true);
-                a.paint(null);                
+                //a.paint(null);                
             }
         });
     }
@@ -120,29 +120,15 @@ public class Graph extends javax.swing.JFrame {
         graphMonth = month;
                        
         for(int i=1; i<graphBalance.length; i++){
-            if(i%9==0){
-                barSpaces = barSpaces/2;
-                barHeight = barHeight-(barHeight/3);
+            if(i%10==0){
+                barSpaces = (barSpaces/2);
+                barHeight = barHeight-(barHeight/2);
             }
         }       
         lblTotalBal.setText("Balance = "+graphBalance[graphBalance.length-1]);                          
     }
     public void paint(Graphics g){
-        if(findMax()>1000){//scale of graph depending on balance value
-            barWidth=10;
-        }
-        else if(findMax()<1000){
-            barWidth = 1;
-        }
-        else if(findMax()>2000){
-            barWidth=150;
-        }
-        else if(findMax()>99999){
-            barWidth=300;
-        }
-        else if(findMax()>1000000){
-            barWidth=600;
-        }
+        int max = findMax();
         super.paint(g);
         int y = 100;
         Graphics2D g2 = (Graphics2D)g;
@@ -154,10 +140,27 @@ public class Graph extends javax.swing.JFrame {
                 g2.setPaint(Color.black);
                 g2.drawString("£"+graphBalance[i],250,y);
             }
-            else{
-                g2.fillRect(180, y, graphBalance[i]/barWidth,barHeight );
-                g2.setPaint(Color.black);
-                g2.drawString("£"+graphBalance[i],(graphBalance[i]/barWidth)+250,y);
+            else{//scaling the graph
+                if(max>49999){
+                    g2.fillRect(180, y, graphBalance[i]/100,barHeight );
+                    g2.setPaint(Color.black);
+                    g2.drawString("£"+graphBalance[i],(graphBalance[i]/100)+250,y);
+                }
+                else if(max>10000){
+                    g2.fillRect(180, y, graphBalance[i]/50,barHeight );
+                    g2.setPaint(Color.black);
+                    g2.drawString("£"+graphBalance[i],(graphBalance[i]/50)+250,y);                    
+                }
+                else if(max>5000){
+                    g2.fillRect(180, y, graphBalance[i]/50,barHeight );
+                    g2.setPaint(Color.black);
+                    g2.drawString("£"+graphBalance[i],(graphBalance[i]/50)+250,y);                     
+                }
+                else{
+                    g2.fillRect(180, y, graphBalance[i]/barWidth,barHeight );
+                    g2.setPaint(Color.black);
+                    g2.drawString("£"+graphBalance[i],(graphBalance[i]/barWidth)+250,y);
+                }
             }                       
             g2.drawString("Month "+graphMonth[i], 50, y);
             y= y+ barSpaces;           
