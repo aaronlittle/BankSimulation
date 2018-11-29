@@ -10,14 +10,12 @@ import java.awt.geom.GeneralPath;
 import javax.swing.JPanel;
 
 public class Graph extends javax.swing.JFrame {
-    
-    int [] xCoords;
-    int [] yCoords;
     int [] graphBalance;
     int [] graphMonth;
     private int barWidth = 10;
-    private int barSpaces = 100;
+    private int barSpaces = 70;
     private int barHeight = 50;
+    private int maxVal = 400;
 
     public Graph() {
         initComponents();  //this constructor will not be used    
@@ -120,7 +118,7 @@ public class Graph extends javax.swing.JFrame {
         graphMonth = month;
                        
         for(int i=1; i<graphBalance.length; i++){
-            if(i%10==0){
+            if(i%13==0){
                 barSpaces = (barSpaces/2);
                 barHeight = barHeight-(barHeight/2);
             }
@@ -140,11 +138,12 @@ public class Graph extends javax.swing.JFrame {
                 g2.setPaint(Color.black);
                 g2.drawString("£"+graphBalance[i],250,y);
             }
+
             else{//scaling the graph
-                if(max>49999){
-                    g2.fillRect(180, y, graphBalance[i]/100,barHeight );
+               if(max>49999){
+                    g2.fillRect(180, y, (graphBalance[i]/100)+300,barHeight );
                     g2.setPaint(Color.black);
-                    g2.drawString("£"+graphBalance[i],(graphBalance[i]/100)+250,y);
+                    g2.drawString("£"+graphBalance[i],((graphBalance[i]/100)+300)+250,y);
                 }
                 else if(max>10000){
                     g2.fillRect(180, y, graphBalance[i]/50,barHeight );

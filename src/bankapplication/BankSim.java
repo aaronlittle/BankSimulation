@@ -372,6 +372,7 @@ public class BankSim extends javax.swing.JFrame {
             
         }
         Graph createGraph = new Graph(graphBalance, graphMonth);
+        //Grphics createGraph = new Grphics(graphBalance, graphMonth);
         createGraph.setVisible(true);
 
     }//GEN-LAST:event_btnGraphActionPerformed
