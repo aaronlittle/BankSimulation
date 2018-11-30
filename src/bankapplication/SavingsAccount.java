@@ -10,8 +10,8 @@ public class SavingsAccount extends Account {
     public SavingsAccount(){
         //default constructor
     }  
-    public SavingsAccount(String fn, String ln, int bal, String type){
-        super(fn,ln,bal,type);            
+    public SavingsAccount(String fn, String ln, int bal){
+        super(fn,ln,bal);            
     }
     
     public boolean balanceErrors(int amount){

@@ -323,7 +323,7 @@ public class BankSim extends javax.swing.JFrame {
                 error=false;
                 int init = Integer.parseInt(bal);
                 if(accountType ==0){
-                    account = new SavingsAccount(fName, lName, init,"Savings Account");
+                    account = new SavingsAccount(fName, lName, init);
                     if(init <100 || init>99999){
                         JOptionPane.showMessageDialog(null, "Balance must be between £100 and £99999");
                         error=true;
@@ -332,8 +332,8 @@ public class BankSim extends javax.swing.JFrame {
                 }
 
                 else if(accountType==1){
-                    account = new CurrentAccount(fName, lName, init,"Current Account");
-                    if(init <1|| init>99999){
+                    account = new CurrentAccount(fName, lName, init);
+                    if(init <1|| init>99989){
                         JOptionPane.showMessageDialog(null, "Start balance cant be under £1 and must be under £99999");
                         error=true;
                         break;
@@ -358,24 +358,6 @@ public class BankSim extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCreateActionPerformed
-
-    private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
-        int size = account.getSuccessful().size();
-        //two arrays to store the month of a successful transaction and the balance
-        int[] graphBalance = new int[size];
-        int[] graphMonth = new int[size];
-        for(int i=0; i<account.getSuccessful().size();i++){
-            int x = account.getSuccessful().get(i).getBalance();
-            int y = account.getSuccessful().get(i).getMonth();
-            graphBalance[i] = x;
-            graphMonth[i]=y;
-            
-        }
-        Graph createGraph = new Graph(graphBalance, graphMonth);
-        //Grphics createGraph = new Grphics(graphBalance, graphMonth);
-        createGraph.setVisible(true);
-
-    }//GEN-LAST:event_btnGraphActionPerformed
 
     private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestartActionPerformed
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -435,6 +417,23 @@ public class BankSim extends javax.swing.JFrame {
         stopSim();
      
     }//GEN-LAST:event_btnStopSimActionPerformed
+
+    private void btnGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraphActionPerformed
+        int size = account.getSuccessful().size();
+        //two arrays to store the month of a successful transaction and the balance
+        int[] graphBalance = new int[size];
+        int[] graphMonth = new int[size];
+        for(int i=0; i<account.getSuccessful().size();i++){
+            int x = account.getSuccessful().get(i).getBalance();
+            int y = account.getSuccessful().get(i).getMonth();
+            graphBalance[i] = x;
+            graphMonth[i]=y;
+
+        }
+        //Graph createGraph = new Graph(graphBalance, graphMonth);
+        Grphics createGraph = new Grphics(graphBalance, graphMonth);
+        createGraph.setVisible(true);
+    }//GEN-LAST:event_btnGraphActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

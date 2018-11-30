@@ -7,8 +7,8 @@ public class CurrentAccount extends Account {
     public CurrentAccount(){
         //default constructor
     }   
-    public CurrentAccount(String fn, String ln, int bal,String type){
-        super(fn,ln,bal,type);
+    public CurrentAccount(String fn, String ln, int bal){
+        super(fn,ln,bal);
     }    
 
     public boolean balanceErrors(int amount){

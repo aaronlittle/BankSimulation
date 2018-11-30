@@ -6,28 +6,19 @@ public abstract class Account {
     private String fName = "";
     private String lName = "";
     private String msg="";
-    private String type = "";
     private int balance = 0;
     private int totWithdraw = 0;
     private int totDeposit = 0;
-    private ArrayList<Transaction>transList = new ArrayList<Transaction>();
-    private ArrayList<Transaction>successful = new ArrayList<Transaction>();
-    private ArrayList<String> msgList = new ArrayList <String>();
+    private ArrayList<Transaction>transList = new ArrayList<Transaction>();//list of transactions
+    private ArrayList<Transaction>successful = new ArrayList<Transaction>();//list of succesful transactions
             
     public Account (){      
     }
-    public Account (String firstName, String lastName, int bal, String typ){       
+    public Account (String firstName, String lastName, int bal){       
         this.balance = bal;
         this.fName = firstName;
         this.lName = lastName;
-        this.type = typ;
-    }
 
-    public String getType(){
-        return type;
-    }
-    public void setType(String value){
-        type=value;
     }
     public int getTotWithdraw(){
         return totWithdraw;
